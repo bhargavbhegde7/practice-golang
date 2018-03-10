@@ -6,23 +6,19 @@ import(
 )
 
 func main() {
-  c1 := make(chan int)
-  c2 := make(chan int)
+  c1 := make(chan string)
+  c2 := make(chan string)
 
   go func() {
-    i1 := 0
     for {
-      c1 <- i1
-      i1 = i1 + 2
+      c1 <- "from 1"
       time.Sleep(time.Second * 2)
     }
   }()
 
   go func() {
-    i2 := 1
     for {
-      c2 <- i2
-      i2 = i2 + 2
+      c2 <- "from 2"
       time.Sleep(time.Second * 3)
     }
   }()
@@ -31,9 +27,9 @@ func main() {
     for {
       select {
       case msg1 := <- c1:
-        fmt.Println("even : ", msg1)
+        fmt.Println(msg1)
       case msg2 := <- c2:
-        fmt.Println("odd  : ", msg2)
+        fmt.Println(msg2)
       }
     }
   }()

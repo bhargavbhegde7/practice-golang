@@ -11,7 +11,7 @@ func main(){
  go producer(channel, "odd");
  go producer(channel, "even");
 
- channel<-"odd"
+ channel<-""
 
  var input string
  fmt.Scanln(&input)

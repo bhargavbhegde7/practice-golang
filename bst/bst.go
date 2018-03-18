@@ -66,10 +66,16 @@ func getInOrderString(root *Node) string{
     return ""
   }
 
-  return strings.Trim(fmt.Sprint(getInOrderString(root.left) +" "+ strconv.Itoa(root.data) +" "+ getInOrderString(root.right)), " ")
+  return strings.Trim(fmt.Sprint(
+    getInOrderString(root.left) +" "+
+    strconv.Itoa(root.data) +" "+
+    getInOrderString(root.right)),
+    " ")
 }
 
 func main(){
   root := getExampleBST()
-  fmt.Println(getInOrderString(root))
+  if strings.EqualFold(getInOrderString(root), "1 3 4 6 7 8 10 13 14"){
+    fmt.Println("success")
+  }
 }

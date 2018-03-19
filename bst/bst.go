@@ -73,9 +73,24 @@ func getInOrderString(root *Node) string{
     " ")
 }
 
-func main(){
-  root := getExampleBST()
-  if strings.EqualFold(getInOrderString(root), "1 3 4 6 7 8 10 13 14"){
-    fmt.Println("success")
+func getPreOrderString(root *Node) string{
+  if root == nil{
+    return ""
   }
+
+  return fmt.Sprint(
+    strconv.Itoa(root.data)+
+    getPreOrderString(root.left)+
+    getPreOrderString(root.right))
+}
+
+func getPostOrderString(root *Node) string{
+  if root == nil{
+    return ""
+  }
+
+  return fmt.Sprint(
+    getPostOrderString(root.left)+
+    getPostOrderString(root.right)+
+    strconv.Itoa(root.data))
 }

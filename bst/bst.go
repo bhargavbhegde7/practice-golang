@@ -94,3 +94,24 @@ func getPostOrderString(root *Node) string{
     getPostOrderString(root.right)+
     strconv.Itoa(root.data))
 }
+
+func getHeight(root *Node) int{
+  if root == nil{
+    return 0
+  }else{
+    heightL := getHeight(root.left)
+    heightR := getHeight(root.right)
+
+    if heightL > heightR{
+      return heightL + 1
+    }else{
+      return heightR + 1
+    }
+  }
+}
+
+
+
+func getLevelOrderString(root *Node){
+
+}

@@ -1,6 +1,9 @@
 package main
 
-import "testing"
+import (
+  "testing"
+  "strconv"
+)
 
 func TestBst(t *testing.T) {
 
@@ -37,6 +40,20 @@ func TestBst(t *testing.T) {
   t.Run("Post order traversal recursive", func(t *testing.T) {
     got := getPostOrderString(getExampleBST())
   	want := "147631314108"
+
+  	assertCorrectMessage(t, got, want)
+	})
+
+  // t.Run("Level order traversal iterative", func(t *testing.T) {
+  //   got := getLevelOrderString(getExampleBST())
+  // 	want := "831016144713"
+  //
+  // 	assertCorrectMessage(t, got, want)
+	// })
+
+  t.Run("Tree Height check", func(t *testing.T) {
+    got := strconv.Itoa(getHeight(getExampleBST()))
+  	want := "4"
 
   	assertCorrectMessage(t, got, want)
 	})

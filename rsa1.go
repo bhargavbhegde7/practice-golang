@@ -23,28 +23,44 @@ func main(){
   }
   raulPublicKey := &raulPrivateKey.PublicKey
 
-  fmt.Printf("\n\nMaria private key : %x\n\n", mariaPrivateKey)
-  fmt.Printf("\n\nMaria public key : %x\n\n", mariaPublicKey)
+  fmt.Printf("\n\nMaria private key :\n\n %x\n\n", mariaPrivateKey)
+  fmt.Printf("\n\nMaria public key :\n\n %x\n\n", mariaPublicKey)
 
-  fmt.Printf("\n\nRaul private key : %x\n\n", raulPrivateKey)
-  fmt.Printf("\n\nRaul public key : %x\n\n", raulPublicKey)
+  fmt.Printf("\n\nRaul private key :\n\n %x\n\n", raulPrivateKey)
+  fmt.Printf("\n\nRaul public key :\n\n %x\n\n", raulPublicKey)
 
   message := "the code must be like a piece of music"
 
-  fmt.Println("\nmessage : %s\n", message)
+  fmt.Println("\nmessage :\n", message)
 
+  //maria encrypts the message using raul's public key
   ciphertext := getCypherTextWithPubKey(message, raulPublicKey)
 
   fmt.Printf("\n\nOAEP encrypted : \n%x\n", ciphertext)
 
+  //maria signs it by encrypting the same message with her private key
   signature := getSignatureWithPrivKey(message, mariaPrivateKey)
 
   fmt.Printf("\n\nPSS Signature : \n%x\n", signature)
 
+
+  /*
+  .
+  .
+  .
+  . . . . . . imagine she is sending encrypted ciphertext and the signature to raul . . . . . .
+  .
+  .
+  .
+  */
+
+
+  //raul decrypts the message using his private key
   plainText := getPlainTextWithPrivateKey(ciphertext, raulPrivateKey)
 
   fmt.Printf("\n\nOAEP decrypted : \n%s\n", plainText)
 
+  //raul verifies the signature using maria's public key
   verifySignatureWithPublicKey(fmt.Sprintf("%s", plainText), signature, mariaPublicKey)
 }
 

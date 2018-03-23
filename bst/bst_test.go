@@ -52,8 +52,10 @@ func TestBst(t *testing.T) {
 	// })
 
   t.Run("Tree Height check", func(t *testing.T) {
-    got := strconv.Itoa(getHeight(getExampleBST()))
-  	want := "4"
+    root := getExampleBST()
+    insert(12, root)
+    got := strconv.Itoa(getHeight(root))
+  	want := "5"
 
   	assertCorrectMessage(t, got, want)
 	})

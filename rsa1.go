@@ -7,7 +7,6 @@ import (
     "crypto/sha256"
     "fmt"
     "os"
-    "log"
 )
 
 func main(){
@@ -24,52 +23,27 @@ func main(){
   }
   raulPublicKey := &raulPrivateKey.PublicKey
 
-  file, err := os.Create("result.txt")
-    if err != nil {
-        log.Fatal("Cannot create file", err)
-    }
-    defer file.Close()
+  fmt.Printf("\n\nMaria private key : %x\n\n", mariaPrivateKey)
+  fmt.Printf("\n\nMaria public key : %x\n\n", mariaPublicKey)
 
-/*----------------------------------------------------------*/
-    fmt.Fprintf(file, "maria private key : ")
-    fmt.Fprintf(file, "\n")
-    fmt.Fprintf(file, "\n")
-    fmt.Fprintf(file, fmt.Sprint(mariaPrivateKey))
-    fmt.Fprintf(file, "\n")
-    fmt.Fprintf(file, "\n")
-    fmt.Fprintf(file, "maria public key : ")
-    fmt.Fprintf(file, "\n")
-    fmt.Fprintf(file, "\n")
-    fmt.Fprintf(file, fmt.Sprint(mariaPublicKey))
-
-    fmt.Fprintf(file, "\n")
-    fmt.Fprintf(file, "\n")
-    fmt.Fprintf(file, "\n")
-
-    fmt.Fprintf(file, "raul private key : ")
-    fmt.Fprintf(file, "\n")
-    fmt.Fprintf(file, "\n")
-    fmt.Fprintf(file, fmt.Sprint(raulPrivateKey))
-    fmt.Fprintf(file, "\n")
-    fmt.Fprintf(file, "\n")
-    fmt.Fprintf(file, "raul public key : ")
-    fmt.Fprintf(file, "\n")
-    fmt.Fprintf(file, "\n")
-    fmt.Fprintf(file, fmt.Sprint(raulPublicKey))
+  fmt.Printf("\n\nRaul private key : %x\n\n", raulPrivateKey)
+  fmt.Printf("\n\nRaul public key : %x\n\n", raulPublicKey)
 
   message := "the code must be like a piece of music"
 
+  fmt.Println("\nmessage : %s\n", message)
+
   ciphertext := getCypherTextWithPubKey(message, raulPublicKey)
 
-  fmt.Printf("OAEP encrypted [%s] to \n[%x]\n", message, ciphertext)
+  fmt.Printf("\n\nOAEP encrypted : \n%x\n", ciphertext)
 
   signature := getSignatureWithPrivKey(message, mariaPrivateKey)
 
-  fmt.Printf("PSS Signature : %x\n", signature)
+  fmt.Printf("\n\nPSS Signature : \n%x\n", signature)
 
   plainText := getPlainTextWithPrivateKey(ciphertext, raulPrivateKey)
 
-  fmt.Printf("OAEP decrypted [%x] to \n[%s]\n", ciphertext, plainText)
+  fmt.Printf("\n\nOAEP decrypted : \n%s\n", plainText)
 
   verifySignatureWithPublicKey(fmt.Sprintf("%s", plainText), signature, mariaPublicKey)
 }

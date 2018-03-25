@@ -64,6 +64,8 @@ func main(){
   verifySignatureWithPublicKey(fmt.Sprintf("%s", plainText), signature, mariaPublicKey)
 }
 
+
+//verifier
 func verifySignatureWithPublicKey(message string, signature []byte, key *rsa.PublicKey){
   newhash := crypto.SHA256
   var opts rsa.PSSOptions
@@ -85,6 +87,8 @@ func verifySignatureWithPublicKey(message string, signature []byte, key *rsa.Pub
   }
 }
 
+
+//decrypter
 func getPlainTextWithPrivateKey(ciphertext []byte, key *rsa.PrivateKey) []byte{
   hash := sha256.New()
   label := []byte("")
@@ -101,6 +105,8 @@ if err != nil {
 return plainText
 }
 
+
+//signer
 func getSignatureWithPrivKey(message string, key *rsa.PrivateKey) []byte{
   var opts rsa.PSSOptions
   opts.SaltLength = rsa.PSSSaltLengthAuto // for simple example
@@ -123,6 +129,8 @@ func getSignatureWithPrivKey(message string, key *rsa.PrivateKey) []byte{
   return signature
 }
 
+
+//encrypter
 func getCypherTextWithPubKey(msg string, key *rsa.PublicKey) []byte{
   message := []byte(msg)
   label := []byte("")
